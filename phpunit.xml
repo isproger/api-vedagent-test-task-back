@@ -4,6 +4,11 @@
          bootstrap="vendor/autoload.php"
          colors="true"
 >
+    <logging>
+        <junit outputFile="tests/Reports/report.xml" />
+        <testdoxHtml outputFile="tests/Reports/report.html" />
+    </logging>
+
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
@@ -30,4 +35,5 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
     </php>
-</phpunit>
+
+    </phpunit>

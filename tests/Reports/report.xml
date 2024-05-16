@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/phpunit.xml" tests="5" assertions="12" errors="0" failures="0" skipped="0" time="0.514748">
-    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.012049">
-      <testsuite name="Tests\Unit\ExampleTest" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.012049">
-        <testcase name="test_that_true_is_true" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.012049"/>
+  <testsuite name="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/phpunit.xml" tests="11" assertions="28" errors="0" failures="0" skipped="0" time="0.817957">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.012275">
+      <testsuite name="Tests\Unit\ExampleTest" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.012275">
+        <testcase name="test_that_true_is_true" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.012275"/>
       </testsuite>
     </testsuite>
-    <testsuite name="Feature" tests="4" assertions="11" errors="0" failures="0" skipped="0" time="0.502699">
-      <testsuite name="TestsFeature\CalculatorTest" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" tests="4" assertions="11" errors="0" failures="0" skipped="0" time="0.502699">
-        <testcase name="testRouteGetTransportCompaniesReturnsSuccessStatusAndNotEmptyArrayData" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="27" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="5" time="0.415751"/>
-        <testcase name="testPositiveCalculation" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="45" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="2" time="0.042668"/>
-        <testcase name="testNegativeCalculation" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="65" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="3" time="0.022121"/>
-        <testcase name="testRecordCreation" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="83" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="1" time="0.022159"/>
+    <testsuite name="Feature" tests="10" assertions="27" errors="0" failures="0" skipped="0" time="0.805682">
+      <testsuite name="TestsFeature\CalculatorTest" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" tests="10" assertions="27" errors="0" failures="0" skipped="0" time="0.805682">
+        <testcase name="testRouteGetTransportCompanies" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="18" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="5" time="0.471195"/>
+        <testsuite name="TestsFeature\CalculatorTest::testPositiveCalculation" tests="3" assertions="6" errors="0" failures="0" skipped="0" time="0.124588">
+          <testcase name="testPositiveCalculation with data set #0" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="44" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="2" time="0.059870"/>
+          <testcase name="testPositiveCalculation with data set #1" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="44" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="2" time="0.031632"/>
+          <testcase name="testPositiveCalculation with data set #2" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="44" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="2" time="0.033086"/>
+        </testsuite>
+        <testsuite name="TestsFeature\CalculatorTest::testNegativeCalculation" tests="3" assertions="13" errors="0" failures="0" skipped="0" time="0.102994">
+          <testcase name="testNegativeCalculation with data set #0" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="78" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="3" time="0.035826"/>
+          <testcase name="testNegativeCalculation with data set #1" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="78" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="6" time="0.033867"/>
+          <testcase name="testNegativeCalculation with data set #2" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="78" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="4" time="0.033301"/>
+        </testsuite>
+        <testsuite name="TestsFeature\CalculatorTest::testRecordCreation" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.106905">
+          <testcase name="testRecordCreation with data set #0" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="110" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="1" time="0.037924"/>
+          <testcase name="testRecordCreation with data set #1" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="110" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="1" time="0.034810"/>
+          <testcase name="testRecordCreation with data set #2" file="/Users/sergeyvorobev/SITES/work-test-tasks/backend/vedagent.ru/transport_company/tests/Feature/CalculatorTest.php" line="110" class="TestsFeature\CalculatorTest" classname="TestsFeature.CalculatorTest" assertions="1" time="0.034171"/>
+        </testsuite>
       </testsuite>
     </testsuite>
   </testsuite>

@@ -3,105 +3,133 @@
 namespace TestsFeature;
 
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use IlluminateFoundationTestingRefreshDatabase;
 use Tests\TestCase;
 use TestsTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class CalculatorTest extends TestCase
 {
-    use RefreshDatabase; // Если используете SQLite in-memory DB
+    use LazilyRefreshDatabase;
 
-    public function setUp(): void
+    public function testRouteGetTransportCompanies()
     {
-        parent::setUp();
-
-        // Выполняем миграции для in-memory базы данных.
-        $this->artisan('migrate');
-
-        // Заполняем базу данных данными из сидера.
-        $this->seed(DatabaseSeeder::class);
-    }
-
-    public function testRouteGetTransportCompaniesReturnsSuccessStatusAndNotEmptyArrayData()
-    {
-        // Отправляем GET запрос к маршруту
         $response = $this->get('/api/v1/get-transport-companies');
 
-        // Убеждаемся, что статус ответа - 200 OK
-        $response->assertStatus(200);
+        $response->assertOk();
 
-        // Проверяем, что ответ является JSON и содержит ключ data который является массивом
         $response->assertJson(fn (AssertableJson $json) =>
             $json->whereType('data', 'array')->etc()
         );
 
-        // Проверяем, что data является не пустым массивом
         $data = $response->json('data');
         $this->assertNotEmpty($data);
     }
 
-    public function testPositiveCalculation()
+    public static function calculationPositiveProvider(): array
     {
-        // Позитивный тест на расчет стоимости
+        return [
+            [200, 20, 1, 1, 1000],
+            [500, 150, 2, 1, 20250],
+            [100, 10, 3, 1, 210],
 
-        // Мы отправляем POST запрос на наш калькулятор со следующими данными
-        $response = $this->postJson('/api/v1/get-calculate-result', [
-            'weight' => 200, // вес груза
-            'distance' => 20, // расстояние перевозки
-            'transportCompany' => 1, // выбранная транспортная компания
-            'productType' => 1, // выбранная тип товара
-        ]);
+            // [weight, distance, transportCompany, productType, expectedValue]
+        ];
+    }
 
-        // Ожидаем ответа 200 и проверяем возвращаемое значение стоимости
+    #[DataProvider('calculationPositiveProvider')]
+    public function testPositiveCalculation(
+        int|null $weight,
+        int|null $distance,
+        int|null $transportCompany,
+        int|null $productType,
+        int $expectedValue
+    )
+    {
+        $response = $this->postJson('/api/v1/get-calculate-result', compact(
+            'weight',
+            'distance',
+            'transportCompany',
+            'productType',
+        ));
+
         $response
-            ->assertStatus(200)
+            ->assertOk()
             ->assertJson([
-                'value' => 1000, // Пример ожидаемого расчета стоимости
+                'value' => $expectedValue,
             ]);
     }
 
-    public function testNegativeCalculation()
+    public static function calculationNegativeProvider():array
     {
-        // Негативный тест на расчет стоимости
+        return [
+            [20, 100, 1, 1, ['weight']],
+            [null, null, null, null, ['weight','distance','transportCompany', 'productType']],
+            [29, 0, 1, 2, ['weight','distance',]],
 
-        // Отправляем запрос с некорректным весом
-        $response = $this->postJson('/api/v1/get-calculate-result', [
-            'weight' => 20, // вес меньше минимально допустимого
-            'distance' => 100,
-            'transportCompany' => 1, // выбранная транспортная компания
-            'productType' => 1, // выбранная тип товара
-        ]);
-
-        // Ожидаем ошибку валидации
-        $response
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['weight']);
+            // [weight, distance, transportCompany, productType, errorField]
+        ];
     }
 
-    public function testRecordCreation()
+    #[DataProvider('calculationNegativeProvider')]
+    public function testNegativeCalculation(
+        int|null $weight,
+        int|null $distance,
+        int|null $transportCompany,
+        int|null $productType,
+        array $errorFieldsCode
+    )
     {
-        // Тест на проверку создания записи о расчете в базе данных
+        $response = $this->postJson('/api/v1/get-calculate-result', compact(
+            'weight',
+            'distance',
+            'transportCompany',
+            'productType',
+        ));
 
-        // Корректные данные
-        $data = [
-            'weight' => 200,
-            'distance' => 100,
-            'transportCompany' => 2,
-            'productType' => 2,
+        $response
+            ->assertStatus(422)
+            ->assertJsonValidationErrors($errorFieldsCode);
+    }
+
+    public static function calculationRecordProvider():array
+    {
+        return [
+            [200, 100, 2, 2, 5400],
+            [1000, 20, 3, 1, 4200],
+            [100000, 200, 1, 1, 5000000],
+
+            // [weight, distance, transportCompany, productType, errorField]
         ];
+    }
 
-        // Отправляем запрос
+    #[DataProvider('calculationRecordProvider')]
+    public function testRecordCreation(
+        int|null $weight,
+        int|null $distance,
+        int|null $transportCompany,
+        int|null $productType,
+        int $summ
+    )
+    {
+        $data = compact(
+            'weight',
+            'distance',
+            'transportCompany',
+            'productType',
+        );
+
         $this->postJson('/api/v1/save-calculation', $data);
-
-        // Проверяем, что запись создалась в базе данных
+        
         $this->assertDatabaseHas('calculations', [
             'weight_kg' => $data['weight'],
             'distance_km' => $data['distance'],
             'transport_company_id' => $data['transportCompany'],
             'product_type_id' => $data['productType'],
-            'summ'=>5400
+            'summ'=>$summ
         ]);
     }
 }
